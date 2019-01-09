@@ -1,12 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+//import ReduxApp from './ReduxApp';
+import { render } from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Appm from './Appm';
+import todoApp from './reducers/reducers';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+let store = createStore(todoApp)
+let rootElement = document.getElementById('root')
+
+render(
+   <Provider store = {store}>
+      <Appm />
+   </Provider>,
+
+   rootElement
+);
+
+
+
+
+// ReactDOM.render(
+//
+//     <ReduxApp />
+//   ,
+//   document.getElementById('root')
+// );

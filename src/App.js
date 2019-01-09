@@ -1,28 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-class App extends Component {
+import { connect } from 'react-redux';
+
+import { activateGeod, closeGeod } from './redux';
+
+// App.js
+export class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+      <div>
+        <h1>{this.props.geod.title || 'Hello World!'}</h1>
+
+        {this.props.geod.title ? (
+          <button onClick={this.props.closeGeod}>Exit Geod</button>
+        ) : (
+          <button
+            onClick={() =>
+              this.props.activateGeod({ title: 'I am a geo dude!' })
+            }
           >
-            Learn React
-          </a>
-        </header>
+            Click Me!
+          </button>
+        )}
+
       </div>
     );
   }
 }
 
-export default App;
+// AppContainer.js
+const mapStateToProps = state => ({
+  geod: state.geod,
+});
+
+const mapDispatchToProps = {
+  activateGeod,
+  closeGeod,
+};
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+export default AppContainer;
